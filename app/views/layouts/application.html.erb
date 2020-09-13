@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Goodgym</title>
     <%= csrf_meta_tags %>
@@ -7,23 +7,19 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
 
   <body>
-    <div id="nav">
-      <% if current_user %>
-        <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
-        <%= link_to "Logout", :logout, method: :post %>
-      <% else %>
-        <%= link_to "Register", new_user_path %> |
-        <%= link_to "Login", :login %>
-      <% end %>
-    </div>
-    <div>
+    <%= render 'layouts/topnav'%>
+    <div class="container">
       <p id="notice"><%= flash[:notice] %></p>
       <p id="alert"><%= flash[:alert] %></p>
-    </div>
 
-    <%= yield %>
+      <%= yield %>
+    </div>
   </body>
 </html>

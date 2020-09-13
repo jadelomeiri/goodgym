@@ -13,24 +13,26 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :password %><br />
-    <%= form.password_field :password %>
+    <%= form.password_field :password, class: "form-control" %>
   </div>
   <div class="field">
     <%= form.label :password_confirmation %><br />
-    <%= form.password_field :password_confirmation %>
+    <%= form.password_field :password_confirmation, class: "form-control" %>
   </div>
 
+  <br><br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Get started", class:"btn btn-primary btn-block" %>
   </div>
 <% end %>
+

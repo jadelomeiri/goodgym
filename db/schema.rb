@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_114903) do
+ActiveRecord::Schema.define(version: 2020_09_13_125451) do
+
+  create_table "registrations", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "run_id", null: false
+    t.integer "user_id", null: false
+    t.index ["run_id"], name: "index_registrations_on_run_id"
+    t.index ["user_id"], name: "index_registrations_on_user_id"
+  end
+
+  create_table "runs", force: :cascade do |t|
+    t.datetime "starting_at"
+    t.integer "registration_limit"
+    t.integer "registrations_booked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -22,4 +39,6 @@ ActiveRecord::Schema.define(version: 2020_09_13_114903) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "registrations", "runs"
+  add_foreign_key "registrations", "users"
 end

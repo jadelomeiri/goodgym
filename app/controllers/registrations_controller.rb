@@ -36,7 +36,7 @@ class RegistrationsController < ApplicationController
       first_user_on_waiting_list = Registration.where("confirmed = false").order("created_at DESC").find(1)
       first_user_on_waiting_list.confirmed = true
       first_user_on_waiting_list.save
-      # TODO: Send notification email
+      WaitingListMailer.with(user: current_user, run: run).notification_email.deliver_later
     else
       run.registrations_booked = run.registrations_booked && run.registrations_booked > 0 ?
                                      run.registrations_booked - 1 : 0

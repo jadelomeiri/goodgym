@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_125451) do
+ActiveRecord::Schema.define(version: 2020_09_13_140359) do
 
   create_table "registrations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "run_id", null: false
     t.integer "user_id", null: false
+    t.boolean "confirmed"
     t.index ["run_id"], name: "index_registrations_on_run_id"
     t.index ["user_id"], name: "index_registrations_on_user_id"
   end

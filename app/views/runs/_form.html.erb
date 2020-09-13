@@ -1,0 +1,32 @@
+<%= form_with(model: run, local: true) do |form| %>
+  <% if run.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(run.errors.count, "error") %> prohibited this run from being saved:</h2>
+
+      <ul>
+        <% run.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :starting_at %>
+    <%= form.datetime_field :starting_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :registration_limit %>
+    <%= form.number_field :registration_limit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :registrations_booked %>
+    <%= form.number_field :registrations_booked %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

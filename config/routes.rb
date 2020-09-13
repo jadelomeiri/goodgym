@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 
   get 'login' => 'user_sessions#new', :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
+  post '/registrations/register/:run_id' => 'registrations#register'
+  delete '/registrations/unregister/:run_id' => 'registrations#unregister'
 end

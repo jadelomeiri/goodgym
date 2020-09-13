@@ -2,13 +2,13 @@
 
 <h1>Runs</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Starting at <%= logged_in? %></th>
+      <th>Starting at</th>
       <th>Registration limit</th>
       <th>Registrations booked</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -18,14 +18,14 @@
         <td><%= run.starting_at %></td>
         <td><%= run.registration_limit %></td>
         <td><%= run.registrations_booked %></td>
-        <td><%= link_to 'Show', run %></td>
-        <td><%= link_to 'Edit', edit_run_path(run) %></td>
-        <td><%= link_to 'Destroy', run, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Register', 'registrations/register/' + String(run.id), method: :post, class: 'btn btn-primary' %>
+          <%= link_to 'Unregister', 'registrations/unregister/' + String(run.id),
+                      method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Run', new_run_path %>

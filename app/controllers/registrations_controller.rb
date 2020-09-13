@@ -1,51 +1,17 @@
 class RegistrationsController < ApplicationController
-  before_action :set_registration, only: [:show, :edit, :update, :destroy]
-
-  # GET /registrations
-  # GET /registrations.json
-  def index
-    @registrations = Registration.all
-  end
-
-  # GET /registrations/1
-  # GET /registrations/1.json
-  def show
-  end
-
-  # GET /registrations/new
-  def new
-    @registration = Registration.new
-  end
-
-  # GET /registrations/1/edit
-  def edit
-  end
+  before_action :set_registration, only: [:destroy]
 
   # POST /registrations
   # POST /registrations.json
-  def create
+  def register
     @registration = Registration.new(registration_params)
 
     respond_to do |format|
       if @registration.save
-        format.html { redirect_to @registration, notice: 'Registration was successfully created.' }
-        format.json { render :show, status: :created, location: @registration }
+        format.html { redirect_to runs_path, notice: 'Registration was successfully created.' }
+        format.json { render :runs, status: :created, location: @registration }
       else
-        format.html { render :new }
-        format.json { render json: @registration.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /registrations/1
-  # PATCH/PUT /registrations/1.json
-  def update
-    respond_to do |format|
-      if @registration.update(registration_params)
-        format.html { redirect_to @registration, notice: 'Registration was successfully updated.' }
-        format.json { render :show, status: :ok, location: @registration }
-      else
-        format.html { render :edit }
+        format.html { redirect_to runs_path, notice: 'Registration was not successfully created.' }
         format.json { render json: @registration.errors, status: :unprocessable_entity }
       end
     end
@@ -53,10 +19,10 @@ class RegistrationsController < ApplicationController
 
   # DELETE /registrations/1
   # DELETE /registrations/1.json
-  def destroy
+  def unregister
     @registration.destroy
     respond_to do |format|
-      format.html { redirect_to registrations_url, notice: 'Registration was successfully destroyed.' }
+      format.html { redirect_to runs_path, notice: 'Registration was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +36,6 @@ class RegistrationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def registration_params
-    params.require(:registration).permit(:run_id, :user_id, :confirmed)
+    params.permit(:run_id)
   end
 end

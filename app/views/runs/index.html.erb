@@ -1,13 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Runs</h1>
 
 <table class="table">
   <thead>
     <tr>
       <th>Starting at</th>
-      <th>Registration limit</th>
       <th>Registrations booked</th>
+      <th>Registration limit</th>
       <th></th>
     </tr>
   </thead>
@@ -16,12 +14,21 @@
     <% @runs.each do |run| %>
       <tr>
         <td><%= run.starting_at %></td>
-        <td><%= run.registration_limit %></td>
         <td><%= run.registrations_booked %></td>
+        <td><%= run.registration_limit %></td>
         <td>
-          <%= link_to 'Register', 'registrations/register/' + String(run.id), method: :post, class: 'btn btn-primary' %>
-          <%= link_to 'Unregister', 'registrations/unregister/' + String(run.id),
-                      method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% run_user_registration = run.registrations.where(user_id: current_user.id)[0] %>
+          <% if run_user_registration %>
+            <%= link_to 'Unregister', 'registrations/unregister/' + String(run.id),
+                        method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <% if run_user_registration.confirmed %>
+              <strong class="text-success">You place is confirmed</strong>
+            <% else %>
+              <strong class="text-warning">You're on the waiting list</strong>
+            <% end %>
+          <% else %>
+            <%= link_to 'Register', 'registrations/register/' + String(run.id), method: :post, class: 'btn btn-primary' %>
+          <% end %>
         </td>
       </tr>
     <% end %>

@@ -15,9 +15,21 @@
 
   <body>
     <%= render 'layouts/topnav'%>
+
     <div class="container">
-      <p id="notice"><%= flash[:notice] %></p>
-      <p id="alert"><%= flash[:alert] %></p>
+      <br>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-warning" role="alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="alert alert-primary" role="alert">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
 
       <%= yield %>
     </div>

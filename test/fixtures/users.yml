@@ -5,13 +5,19 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  name: john
-  email: joh@doe.com
-  crypted_password: xxx
-  salt: sss
-#
+  name: One
+  email: 1@1.com
+  created_at: '2020-04-04 10:10:00'
+  updated_at: '2020-04-04 10:10:00'
+
 two:
-  name: anna
-  email: anna@smith.com
-  crypted_password: xxx
-  salt: sss
+  name: Two
+  email: 2@2.com
+  created_at: '2020-04-04 10:10:00'
+  updated_at: '2020-04-04 10:10:00'
+
+three:
+  name: Three
+  email: 3@3.com
+  created_at: '2020-04-04 10:10:00'
+  updated_at: '2020-04-04 10:10:00'

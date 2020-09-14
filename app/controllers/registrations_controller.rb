@@ -16,16 +16,12 @@ class RegistrationsController < ApplicationController
 
   # DELETE /registrations/1
   def unregister
-    place_will_free = @run.registrations_booked == @run.registration_limit
-
     @registration = Registration.find_by_run_id_and_user_id(@run_id, current_user.id)
+    place_will_free = @registration.confirmed
     @registration.destroy
 
-    if place_will_free
-      bump_first_user_on_waiting_list
-    else
-      update_registrations_booked -1
-    end
+    bump_first_user_on_waiting_list if place_will_free
+    update_registrations_booked -1
 
     redirect_to runs_path, notice: 'Registration was successfully destroyed.'
   end
@@ -40,10 +36,13 @@ class RegistrationsController < ApplicationController
   end
 
   def bump_first_user_on_waiting_list
-    first_user_on_waiting_list = Registration.where('confirmed = false').order('created_at DESC').first
-    first_user_on_waiting_list.confirmed = true
-    first_user_on_waiting_list.save
-    WaitingListMailer.with(user: current_user, run: @run).notification_email.deliver_later
+    first_user_on_waiting_list = Registration.where('confirmed = false').order('created_at ASC').first
+
+    if first_user_on_waiting_list
+      first_user_on_waiting_list.confirmed = true
+      first_user_on_waiting_list.save
+      WaitingListMailer.with(user: first_user_on_waiting_list.user, run: @run).notification_email.deliver_later
+    end
   end
 
   # Use callbacks to share common setup or constraints between actions.

@@ -17,18 +17,7 @@
         <td><%= run.registrations_booked %></td>
         <td><%= run.registration_limit %></td>
         <td>
-          <% run_user_registration = run.registrations.where(user_id: current_user.id)[0] %>
-          <% if run_user_registration %>
-            <%= link_to 'Unregister', 'registrations/unregister/' + String(run.id),
-                        method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-            <% if run_user_registration.confirmed %>
-              <strong class="text-success">You place is confirmed</strong>
-            <% else %>
-              <strong class="text-warning">You're on the waiting list</strong>
-            <% end %>
-          <% else %>
-            <%= link_to 'Register', 'registrations/register/' + String(run.id), method: :post, class: 'btn btn-primary' %>
-          <% end %>
+          <%= set_action_button(run,current_user.id) %>
         </td>
       </tr>
     <% end %>
